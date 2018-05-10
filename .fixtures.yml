@@ -1,0 +1,6 @@
+fixtures:
+  symlinks:
+    logdna: "#{source_dir}"
+  forge_modules:
+    stdlib: puppetlabs/stdlib
+    apt: puppetlabs/apt

@@ -1,0 +1,60 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+  privileged: true
+
+transport:
+  username: kitchen
+
+provisioner:
+  name: puppet_apply
+  mainfests_path: manifests
+  modules_path: ../
+
+platforms:
+  - name: CentOS_7
+    driver_plugin: docker
+    driver_config:
+      image: centos:7
+      run_command: /usr/lib/systemd/systemd
+      platform: centos
+  - name: CentOS_6
+    driver_plugin: docker
+    driver_config:
+      image: centos:6
+      run_command: /sbin/init
+      platform: centos
+  - name: Precise
+    driver_plugin: docker
+    driver_config:
+      image: ubuntu:12.04
+      platform: ubuntu
+  - name: Trusty
+    driver_plugin: docker
+    driver_config:
+      image: ubuntu:14.04
+      run_command: /sbin/init
+      provision_command:
+        - rm -f /sbin/initctl
+        - dpkg-divert --local --rename --remove /sbin/initctl
+      platform: ubuntu
+  - name: Xenial
+    driver_plugin: docker
+    driver_config:
+      image: ubuntu:16.04
+      run_command: /lib/systemd/systemd
+      platform: ubuntu
+  - name: Artful
+    driver_plugin: docker
+    driver_config:
+      image: ubuntu:17.10
+      provision_command:
+        - mkdir -p /run/sshd
+      platform: ubuntu
+
+suites:
+  - name: default
+    verifier:
+     inspec_tests:
+      - test/integration/default/serverspec
