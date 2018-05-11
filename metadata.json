@@ -4,7 +4,7 @@
   "author": "Samir Musali",
   "summary": "Puppet module to install and configure LogDNA Agent",
   "license": "MIT",
-  "source": "",
+  "source": "https://github.com/logdna/puppet-logdna",
   "dependencies": [
     "puppetlabs/apt",
     "puppetlabs/stdlib"
