@@ -62,6 +62,9 @@ There are 2 ways:
 * Update parameters in `logdna::params` and `include logdna`, or
 * `class { 'logdna': <param> => <value> }`
 
+## Contributing
+
+Contributions are always welcome. See the [contributing guide](https://github.com/logdna/puppet-logdna/blob/master/CONTRIBUTING.md) to learn how you can help.
 
 ## License and Authors
 
