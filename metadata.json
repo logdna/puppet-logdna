@@ -1,5 +1,5 @@
 {
-  "name": "puppet-logdna",
+  "name": "logdna-logdna",
   "version": "0.1.0",
   "author": "Samir Musali",
   "summary": "Puppet module to install and configure LogDNA Agent",
