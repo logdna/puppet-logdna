@@ -33,9 +33,9 @@
 class logdna (
     Optional[String] $conf_key            = $logdna::params::conf_key,
     Optional[String] $conf_config         = $logdna::params::conf_config,
-    Optional[String] $conf_logdir         = $logdna::params::conf_logdir,
-    Optional[String] $conf_logfile        = $logdna::params::conf_logfile,
-    Optional[String] $conf_tags           = $logdna::params::conf_tags,
+    Optional[Array[String]] $conf_logdir  = $logdna::params::conf_logdir,
+    Optional[Array[String]] $conf_logfile = $logdna::params::conf_logfile,
+    Optional[Array[String]] $conf_tags    = $logdna::params::conf_tags,
     Optional[String] $conf_hostname       = $logdna::params::conf_hostname,
     Optional[String] $conf_exclude        = $logdna::params::conf_exclude,
     Optional[String] $conf_exclude_regex  = $logdna::params::conf_exclude_regex,
@@ -62,12 +62,12 @@ class logdna (
         class {'logdna::agent::configure':
             key            => $conf_key,
             config         => $conf_config,
-            logdir         => $conf_logdir,
-            logfile        => $conf_logfile,
+            logdirs        => $conf_logdir,
+            logfiles       => $conf_logfile,
             tags           => $conf_tags,
             hostname       => $conf_hostname,
             exclude        => $conf_exclude,
-            esxclude_regex => $conf_exclude_regex
+            exclude_regex  => $conf_exclude_regex
         }
     }
 
