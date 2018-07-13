@@ -59,7 +59,16 @@ class logdna (
     }
 
     if $agent_configure {
-        include logdna::agent::configure
+        class {'logdna::agent::configure':
+            key            => $conf_key,
+            config         => $conf_config,
+            logdir         => $conf_logdir,
+            logfile        => $conf_logfile,
+            tags           => $conf_tags,
+            hostname       => $conf_hostname,
+            exclude        => $conf_exclude,
+            esxclude_regex => $conf_exclude_regex
+        }
     }
 
     if $agent_service == 'stop' or $conf_key {
