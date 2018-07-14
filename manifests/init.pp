@@ -60,14 +60,14 @@ class logdna (
 
     if $agent_configure {
         class {'logdna::agent::configure':
-            key            => $conf_key,
-            config         => $conf_config,
-            logdirs        => $conf_logdir,
-            logfiles       => $conf_logfile,
-            tags           => $conf_tags,
-            hostname       => $conf_hostname,
-            exclude        => $conf_exclude,
-            exclude_regex  => $conf_exclude_regex
+            key           => $conf_key,
+            config        => $conf_config,
+            logdirs       => $conf_logdir,
+            logfiles      => $conf_logfile,
+            tags          => $conf_tags,
+            hostname      => $conf_hostname,
+            exclude       => $conf_exclude,
+            exclude_regex => $conf_exclude_regex
         }
     }
 

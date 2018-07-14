@@ -65,7 +65,7 @@ class logdna::agent::configure(
 
     if $exclude_regex and !empty($exclude_regex) {
         $exclude_regex.each |String $exclude_pattern| {
-            exec { "LogDNA - Adding Log Exclusion - ${exclude_path}":
+            exec { "LogDNA - Adding Log Exclusion - ${exclude_pattern}":
                 command => "/usr/bin/logdna-agent -r ${exclude_pattern}"
             }
         }
