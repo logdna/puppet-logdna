@@ -24,71 +24,26 @@
 #
 
 class logdna::agent::configure(
-    Optional[String] $key             = $logdna::params::conf_key,
-    Optional[String] $config          = $logdna::params::conf_config,
-    Optional[Array[String]] $logdirs  = $logdna::params::conf_logdir,
-    Optional[Array[String]] $logfiles = $logdna::params::conf_logfile,
-    Optional[Array[String]] $tags     = $logdna::params::conf_tags,
-    Optional[String] $hostname        = $logdna::params::conf_hostname,
-    Optional[Array[String]] $exclude  = $logdna::params::conf_exclude,
-    Optional[String] $exclude_regex   = $logdna::params::conf_exclude_regex
+    Optional[String] $key                  = $logdna::params::conf_key,
+    Optional[String] $conf_file            = $logdna::params::conf_file,
+    Optional[Array[String]] $logdirs       = $logdna::params::conf_logdir,
+    Optional[Array[String]] $logfiles      = $logdna::params::conf_logfile,
+    Optional[Array[String]] $tags          = $logdna::params::conf_tags,
+    Optional[String] $hostname             = $logdna::params::conf_hostname,
+    Optional[Array[String]] $exclude       = $logdna::params::conf_exclude,
+    Optional[Array[String]] $exclude_regex = $logdna::params::conf_exclude_regex
 ) inherits logdna::params {
 
-    if $key {
-        exec { 'Setting LogDNA Ingestion Key':
-            command => "/usr/bin/logdna-agent -k ${key}"
-        }
+    $log_objects = concat($logdirs, $logfiles)
+
+    file { $conf_file:
+        content => template('logdna/logdna.conf.erb'),
+        notify  => Service['logdna-agent']
     }
 
-    if $config {
-        exec { 'Using Alternate Config File':
-            command => "/usr/bin/logdna-agent -c ${config}"
-        }
-    }
-
-    if $logdirs and !empty($logdirs) {
-        $logdirs.each |String $logdir| {
-            exec { "LogDNA - Adding Log Directory - ${logdir}":
-                command => "/usr/bin/logdna-agent -d ${logdir}"
-            }
-        }
-    }
-
-    if $logfiles and !empty($logfiles) {
-        $logfiles.each |String $logfile| {
-            exec { "LogDNA - Adding Log File - ${logfile}":
-                command => "/usr/bin/logdna-agent -f ${logfile}"
-            }
-        }
-    }
-
-
-    if $exclude_regex and !empty($exclude_regex) {
-        $exclude_regex.each |String $exclude_pattern| {
-            exec { "LogDNA - Adding Log Exclusion - ${exclude_pattern}":
-                command => "/usr/bin/logdna-agent -r ${exclude_pattern}"
-            }
-        }
-    }
-
-    if $exclude and !empty($exclude) {
-        $exclude.each |String $exclude_path| {
-            exec { "LogDNA - Adding Log Exclusion - ${exclude_path}":
-                command => "/usr/bin/logdna-agent -e ${exclude_path}"
-            }
-        }
-    }
-
-    if $tags and !empty($tags) {
-        $flat_tags = join($tags, ',')
-        exec { 'Setting Tags for This Host':
-            command => "/usr/bin/logdna-agent -t ${flat_tags}"
-        }
-    }
-
-    if $hostname {
-        exec { 'Using Alternate Hostname':
-            command => "/usr/bin/logdna-agent -n ${hostname}"
+    if $conf_file != $logdna::params::conf_file {
+        exec { "LogDNA Agent: Using Alternate Config File ${conf_file}":
+            command => "/usr/bin/logdna-agent -c ${conf_file}"
         }
     }
 }

@@ -31,17 +31,17 @@
 #
 
 class logdna (
-    Optional[String] $conf_key            = $logdna::params::conf_key,
-    Optional[String] $conf_config         = $logdna::params::conf_config,
-    Optional[Array[String]] $conf_logdir  = $logdna::params::conf_logdir,
-    Optional[Array[String]] $conf_logfile = $logdna::params::conf_logfile,
-    Optional[Array[String]] $conf_tags    = $logdna::params::conf_tags,
-    Optional[String] $conf_hostname       = $logdna::params::conf_hostname,
-    Optional[String] $conf_exclude        = $logdna::params::conf_exclude,
-    Optional[String] $conf_exclude_regex  = $logdna::params::conf_exclude_regex,
-    Boolean $agent_install                = $logdna::params::agent_install,
-    Boolean $agent_configure              = $logdna::params::agent_configure,
-    Optional[String] $agent_service       = $logdna::params::agent_service
+    Optional[String] $conf_key                  = $logdna::params::conf_key,
+    Optional[String] $conf_file                 = $logdna::params::conf_file,
+    Optional[Array[String]] $conf_logdir        = $logdna::params::conf_logdir,
+    Optional[Array[String]] $conf_logfile       = $logdna::params::conf_logfile,
+    Optional[Array[String]] $conf_tags          = $logdna::params::conf_tags,
+    Optional[String] $conf_hostname             = $logdna::params::conf_hostname,
+    Optional[Array[String]] $conf_exclude       = $logdna::params::conf_exclude,
+    Optional[Array[String]] $conf_exclude_regex = $logdna::params::conf_exclude_regex,
+    Boolean $agent_install                      = $logdna::params::agent_install,
+    Boolean $agent_configure                    = $logdna::params::agent_configure,
+    Optional[String] $agent_service             = $logdna::params::agent_service
 ) inherits logdna::params {
 
     if $agent_install {
@@ -61,7 +61,7 @@ class logdna (
     if $agent_configure {
         class {'logdna::agent::configure':
             key           => $conf_key,
-            config        => $conf_config,
+            conf_file     => $conf_file,
             logdirs       => $conf_logdir,
             logfiles      => $conf_logfile,
             tags          => $conf_tags,
@@ -71,18 +71,7 @@ class logdna (
         }
     }
 
-    if $agent_service == 'stop' or $conf_key {
-        case $::osfamily {
-            'RedHat': {
-                include 'logdna::agent::service::service_redhat'
-            }
-            'Debian': {
-                include 'logdna::agent::service::service_debian'
-            }
-            default: {
-                fail("This OS is not supported: ${::osfamily}")
-            }
-        }
+    class {'logdna::agent::service':
+        ensure => $agent_service,
     }
-
 }

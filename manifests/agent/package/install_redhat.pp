@@ -18,11 +18,11 @@ class logdna::agent::package::install_redhat(
         gpgcheck => '0',
     }
 
-    exec { 'yum_update':
+    -> exec { 'yum_update':
         command => '/usr/bin/yum update -y'
     }
 
-    package { 'logdna-agent':
+    -> package { 'logdna-agent':
         ensure   => 'present',
         provider => 'yum',
     }

@@ -1,0 +1,18 @@
+<%- if @key -%>
+key = <%= @key %>
+<%- end -%>
+<%- if !@log_objects.empty? -%>
+logdir = <%= @log_objects.join(',') %>
+<%- end -%>
+<%- if !@tags.empty? -%>
+tags = <%= @tags.join(',') %>
+<%- end -%>
+<%- if !@exclude.empty? -%>
+exclude = <%= @exclude.join(',') %>
+<%- end -%>
+<%- if !@exclude_regex.empty? -%>
+exclude_regex = <%= @exclude_regex.join(',') %>
+<%- end -%>
+<%- if @hostname -%>
+hostname = <%= @hostname %>
+<%- end -%>
