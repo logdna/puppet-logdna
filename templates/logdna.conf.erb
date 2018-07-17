@@ -10,8 +10,8 @@ tags = <%= @tags.join(',') %>
 <%- if !@exclude.empty? -%>
 exclude = <%= @exclude.join(',') %>
 <%- end -%>
-<%- if !@exclude_regex.empty? -%>
-exclude_regex = <%= @exclude_regex.join(',') %>
+<%- if @exclude_regex -%>
+exclude_regex = <%= @exclude_regex %>
 <%- end -%>
 <%- if @hostname -%>
 hostname = <%= @hostname %>
