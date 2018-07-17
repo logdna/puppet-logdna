@@ -7,7 +7,6 @@ describe 'logdna::agent::configure' do
         facts
       end
       it {
-        is_expected.to compile.with_all_deps
         should contain_class('logdna::agent::configure')
       }
     end

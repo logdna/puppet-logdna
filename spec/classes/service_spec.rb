@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'logdna::agent::service::service_debian' do
+describe 'logdna::agent::service' do
   on_supported_os.each do |os, facts|
     context 'with default values for all parameters' do
       let(:facts) do
@@ -10,7 +10,7 @@ describe 'logdna::agent::service::service_debian' do
       when 'Debian'
         it {
           is_expected.to compile.with_all_deps
-          should contain_class('logdna::agent::service::service_debian')
+          should contain_class('logdna::agent::service')
         }
       else
         it {
