@@ -11,7 +11,7 @@ class logdna::params {
     $conf_tags          = []
     $conf_hostname      = undef
     $conf_exclude       = []
-    $conf_exclude_regex = undef
+    $conf_exclude_regex = []
     $agent_install      = true
     $agent_configure    = true
     $agent_service      = 'running'
