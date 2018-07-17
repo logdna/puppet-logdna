@@ -17,5 +17,4 @@ jobs:
             bundle exec rake
       - run:
           name: Kitchenifying
-          command: |
-            bundle exec kitchen test --concurrency 4 --parallel
+          command: bundle exec kitchen test --concurrency 4 --parallel
