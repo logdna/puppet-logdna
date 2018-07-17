@@ -38,7 +38,7 @@ class logdna (
     Optional[Array[String]] $conf_tags          = $logdna::params::conf_tags,
     Optional[String] $conf_hostname             = $logdna::params::conf_hostname,
     Optional[Array[String]] $conf_exclude       = $logdna::params::conf_exclude,
-    Optional[Array[String]] $conf_exclude_regex = $logdna::params::conf_exclude_regex,
+    Optional[String] $conf_exclude_regex        = $logdna::params::conf_exclude_regex,
     Boolean $agent_install                      = $logdna::params::agent_install,
     Boolean $agent_configure                    = $logdna::params::agent_configure,
     Optional[String] $agent_service             = $logdna::params::agent_service
