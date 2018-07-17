@@ -1,5 +1,7 @@
 # Deploy LogDNA with Puppet
 
+[![CircleCI](https://circleci.com/gh/logdna/puppet-logdna/tree/master.svg?style=svg&circle-token=d32c6c3959769a2347536d45c1204b2cb022c32c)](https://circleci.com/gh/logdna/puppet-logdna/tree/master)
+
 #### Table of Contents
 
 1. [Description](#description)
