@@ -6,12 +6,12 @@
 # [*key*]
 #   LogDNA Ingestion Key - LogDNA Agent service will not start
 #   unless it is specified
-# [*config*]
+# [*conf_file*]
 #   Configuration file alternative to /etc/logdna.conf,
 #   which is default
-# [*logdir*]
+# [*logdirs*]
 #   Log Directories to be added
-# [*logfile*]
+# [*logfiles*]
 #   Log Files to be added
 # [*tags*]
 #   Tags to be added;
@@ -31,7 +31,7 @@ class logdna::agent::configure(
     Optional[Array[String]] $tags          = $logdna::params::conf_tags,
     Optional[String] $hostname             = $logdna::params::conf_hostname,
     Optional[Array[String]] $exclude       = $logdna::params::conf_exclude,
-    Optional[Array[String]] $exclude_regex = $logdna::params::conf_exclude_regex
+    Optional[String] $exclude_regex        = $logdna::params::conf_exclude_regex
 ) inherits logdna::params {
 
     $log_objects = concat($logdirs, $logfiles)
