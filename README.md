@@ -39,7 +39,7 @@ Parameters have default values set in `manifests/params.pp`.
 ### Configuration Attributes
 
 * `conf_key`: LogDNA API Key - LogDNA Agent won't start unless `conf_key` is set
-* `conf_config`: File Path for the LogDNA Agent configuration (defaults to `/etc/logdna.conf`)
+* `conf_file`: File Path for the LogDNA Agent configuration (defaults to `/etc/logdna.conf`)
 * `conf_logdir`: Log Directories to be added
 * `conf_logfile`: Log Files to be added
 * `conf_exclude`: Log Files or Directories to be excluded
