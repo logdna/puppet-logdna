@@ -25,5 +25,6 @@ class logdna::agent::package::install_redhat(
     -> package { 'logdna-agent':
         ensure   => 'present',
         provider => 'yum',
+        before   => Service['logdna-agent']
     }
 }

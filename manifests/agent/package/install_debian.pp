@@ -24,6 +24,7 @@ class logdna::agent::package::install_debian(
     -> package { 'logdna-agent':
         ensure   => 'present',
         provider => 'apt',
-        require  => Apt::Source['logdna-agent']
+        require  => Apt::Source['logdna-agent'],
+        before   => Service['logdna-agent']
     }
 }
