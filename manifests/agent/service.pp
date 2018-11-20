@@ -20,10 +20,6 @@ class logdna::agent::service(
 
     service { 'logdna-agent':
         ensure     => $ensure,
-        enable     => $enable,
-        hasrestart => true,
-        hasstatus  => true,
-        restart    => 'logdna-agent restart',
-        status     => 'logdna-agent status'
+        enable     => $enable
     }
 }
