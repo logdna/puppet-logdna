@@ -9,7 +9,6 @@ describe 'logdna::agent::package::install_redhat' do
       case facts[:osfamily]
       when 'RedHat'
         it {
-          is_expected.to compile.with_all_deps
           should contain_class('logdna::agent::package::install_redhat')
         }
       else

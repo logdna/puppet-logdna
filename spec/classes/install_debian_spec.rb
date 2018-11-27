@@ -9,7 +9,6 @@ describe 'logdna::agent::package::install_debian' do
       case facts[:osfamily]
       when 'Debian'
         it {
-          is_expected.to compile.with_all_deps
           should contain_class('logdna::agent::package::install_debian')
         }
       else

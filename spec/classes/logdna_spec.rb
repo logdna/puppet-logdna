@@ -6,10 +6,17 @@ describe 'logdna' do
       let(:facts) do
         facts
       end
-      it {
-        is_expected.to compile.with_all_deps
-        should contain_class('logdna')
-      }
+      case facts[:osfamily]
+      when ('Debian' or 'RedHat')
+        it {
+          is_expected.to compile.with_all_deps
+          should contain_class('logdna')
+        }
+      else
+        it {
+          is_expected.not_to compile.with_all_deps.and_raise_error(Puppet::ParseError)
+        }
+      end
     end
   end
 end
