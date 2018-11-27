@@ -19,7 +19,7 @@ class logdna::agent::service(
     }
 
     service { 'logdna-agent':
-        ensure     => $ensure,
-        enable     => $enable
+        ensure => $ensure,
+        enable => $enable
     }
 }
