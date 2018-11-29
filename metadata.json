@@ -1,6 +1,6 @@
 {
   "name": "logdna-logdna",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Samir Musali",
   "summary": "Puppet module to install and configure LogDNA Agent",
   "license": "MIT",
