@@ -21,9 +21,15 @@ class logdna::agent::package::install_debian(
         }
     }
 
+    ~> exec { 'logdna agent apt update':
+      command     => '/usr/bin/apt-get update',
+      refreshonly => true
+    }
+
     -> package { 'logdna-agent':
         ensure   => 'present',
         provider => 'apt',
-        require  => Apt::Source['logdna-agent']
+        require  => Apt::Source['logdna-agent'],
+        before   => Service['logdna-agent']
     }
 }

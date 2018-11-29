@@ -7,7 +7,7 @@ describe 'logdna::agent::service' do
         facts
       end
       case facts[:osfamily]
-      when 'Debian'
+      when ('Debian' or 'RedHat')
         it {
           is_expected.to compile.with_all_deps
           should contain_class('logdna::agent::service')
