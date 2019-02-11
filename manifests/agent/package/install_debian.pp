@@ -23,7 +23,8 @@ class logdna::agent::package::install_debian(
 
     ~> exec { 'logdna agent apt update':
       command     => '/usr/bin/apt-get update',
-      refreshonly => true
+      refreshonly => true,
+      timeout     => 600
     }
 
     -> package { 'logdna-agent':
