@@ -20,7 +20,8 @@ class logdna::agent::package::install_redhat(
 
     -> exec { 'yum_update':
         command => '/usr/bin/yum update -y',
-        timeout => 600
+        timeout => 600,
+        tries   => 5
     }
 
     -> package { 'logdna-agent':
