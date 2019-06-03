@@ -18,8 +18,8 @@ class logdna::agent::package::install_redhat(
         gpgcheck => '0',
     }
 
-    -> exec { 'yum_update':
-        command => '/usr/bin/yum update -y',
+    -> exec { 'yum_makecache':
+        command => '/usr/bin/yum makecache',
         timeout => 600,
         tries   => 5
     }
