@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   test:
     machine: true
@@ -54,12 +54,13 @@ jobs:
 workflows:
   version: 2
   update_module:
-    - test
-    - publish:
-        requires:
-          - test
-        filters:
-          tags:
+    jobs:
+      - test
+      - publish:
+          requires:
+            - test
+          filters:
+            tags:
               only: /[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?/
             branches:
               ignore: /.*/
