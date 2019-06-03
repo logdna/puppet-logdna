@@ -45,13 +45,6 @@ platforms:
       image: ubuntu:16.04
       run_command: /lib/systemd/systemd
       platform: ubuntu
-  - name: Artful
-    driver_plugin: docker
-    driver_config:
-      image: ubuntu:17.10
-      provision_command:
-        - mkdir -p /run/sshd
-      platform: ubuntu
 
 suites:
   - name: default
