@@ -56,7 +56,6 @@ Parameters have default values set in `manifests/params.pp`.
 * Ubuntu 12.04 - Precise
 * Ubuntu 14.04 - Trusty
 * Ubuntu 16.04 - Xenial
-* Ubuntu 17.10 - Artful
 
 ## Usage
 
