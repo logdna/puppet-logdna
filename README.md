@@ -53,10 +53,8 @@ Parameters have default values set in `manifests/params.pp`.
 
 * CentOS 6
 * CentOS 7
-* Ubuntu 12.04 - Precise
 * Ubuntu 14.04 - Trusty
 * Ubuntu 16.04 - Xenial
-* Ubuntu 17.10 - Artful
 
 ## Usage
 

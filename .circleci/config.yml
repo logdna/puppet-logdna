@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     machine: true
     steps:
       - checkout
@@ -18,3 +18,48 @@ jobs:
       - run:
           name: Kitchenifying
           command: bundle exec kitchen test --concurrency 4 --parallel
+  publish:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Check Tagged Push
+          command: |
+            TAG_VERSION=$(git tag -l --sort=-v:refname | head -n 1 | cut -d'-' -f2)
+            META_VERSION=$(cat metadata.json | grep version | cut -d':' -f2 | cut -d '"' -f2 | head -n1)
+            if [[ "${TAG_VERSION}" != "${META_VERSION}" ]]; then
+              echo "There is mismatch:"
+              echo "  TAG_VERSION: ${TAG_VERSION}"
+              echo "  META_VERSION: ${META_VERSION}"
+              exit 1
+            fi
+      - run:
+          name: Install RubyGems
+          command: |
+            gem install bundler
+            bundle install
+            librarian-puppet init && librarian-puppet install
+      - run:
+          name: Build Package
+          command: puppet module build .
+      - run:
+          name: Publish into Puppet Forge
+          command: |
+            TAG=$(git tag -l --sort=-v:refname | head -n 1 | cut -d'-' -f2)
+            curl -H "Authorization: Bearer ${PUPPET_FORGE_API_KEY}" \
+            -H 'Content-Type: application/json' \
+            -H 'Accept: application/json' \
+            -D "{\"file\":\"$(openssl base64 -in pkg/logdna-logdna-${TAG}.tar.gz)\"}" \
+            -X POST https://forgeapi.puppet.com/v3/releases
+workflows:
+  version: 2
+  update_module:
+    - test
+    - publish:
+        requires:
+          - test
+        filters:
+          tags:
+              only: /[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?/
+            branches:
+              ignore: /.*/
