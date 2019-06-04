@@ -35,7 +35,10 @@ jobs:
             fi
       - run:
           name: Install Puppet Development Kit
-          command: sudo apt-get update && sudo apt-get -y install pdk
+          command: |
+            curl -o pdk.deb https://pm.puppet.com/cgi-bin/pdk_download.cgi?dist=ubuntu&rel=14.04&arch=amd64&ver=latest
+            sudo apt-get update
+            sudo dpkg -i pdk.deb
       - run:
           name: Build Package
           command: puppet module build .
@@ -52,15 +55,15 @@ workflows:
   version: 2
   update_module:
     jobs:
-      - test:
-          filters:
-            tags:
-              only: /[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?/
-            branches:
-              ignore: /.*/
+#      - test:
+#          filters:
+#            tags:
+#              only: /[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?/
+#            branches:
+#              ignore: /.*/
       - publish:
-          requires:
-            - test
+#          requires:
+#            - test
           filters:
             tags:
               only: /[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?/
