@@ -34,11 +34,8 @@ jobs:
               exit 1
             fi
       - run:
-          name: Install RubyGems
-          command: |
-            gem install bundler
-            bundle install
-            librarian-puppet init && librarian-puppet install
+          name: Install Puppet Development Kit
+          command: sudo apt-get update && sudo apt-get -y install pdk
       - run:
           name: Build Package
           command: puppet module build .
