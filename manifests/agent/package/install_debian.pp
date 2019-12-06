@@ -12,17 +12,19 @@ class logdna::agent::package::install_debian(
 
     apt::source { 'logdna-agent':
         comment  => 'This is official LogDNA Agent repository',
-        location => 'http://repo.logdna.com',
+        location => 'https://repo.logdna.com',
         release  => 'stable',
         repos    => 'main',
         key      => {
             id     => '02E0C689A9FCC8110A8FECB9C1BF174AEF506BE8',
-            source => 'http://repo.logdna.com/logdna.gpg'
+            source => 'https://repo.logdna.com/logdna.gpg'
         }
     }
 
-    ~> exec { 'logdna agent apt update':
+    exec { 'logdna agent apt update':
       command     => '/usr/bin/apt-get update',
+      require     => Apt::Source['logdna-agent'],
+      subscribe   => Apt::Source['logdna-agent'],
       refreshonly => true,
       timeout     => 600,
       tries       => 5
