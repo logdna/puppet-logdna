@@ -12,7 +12,7 @@ class logdna::agent::package::install_redhat(
 
     yumrepo { 'logdna-agent':
         ensure   => 'present',
-        baseurl  => 'http://repo.logdna.com/el6/',
+        baseurl  => 'https://repo.logdna.com/el6/',
         descr    => 'This is official LogDNA Agent repository',
         enabled  => '1',
         gpgcheck => '0',
